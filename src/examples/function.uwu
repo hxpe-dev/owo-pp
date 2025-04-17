@@ -1,0 +1,6 @@
+sparkle meowHewwo() {
+  meow("hewwo~!")
+  meow("YES")
+}
+
+meowHewwo()

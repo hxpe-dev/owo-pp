@@ -1,0 +1,4 @@
+nyan x = 3.14
+nyan y = 2
+meow(x)
+meow(y)
