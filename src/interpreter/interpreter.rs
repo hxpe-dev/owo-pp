@@ -1,4 +1,5 @@
 use crate::parser::ast::*;
+use crate::utils::owo::owoify;
 use std::collections::HashMap;
 
 // === Runtime Structures ===
@@ -30,7 +31,7 @@ pub fn run(ast: &[ASTNode]) {
     // Pass 2: Execute statements
     for node in ast {
         match node {
-            ASTNode::Print(_) | ASTNode::FunctionCall(_) | ASTNode::VariableDeclaration(_) => {
+            ASTNode::OwO(_) | ASTNode::Print(_) | ASTNode::FunctionCall(_) | ASTNode::VariableDeclaration(_) => {
                 execute(node, &mut env);
             }
             _ => {}
@@ -52,6 +53,7 @@ fn evaluate(node: &ASTNode, env: &Environment) -> Value {
             .unwrap_or_else(|| panic!("Variable \"{}\" is not defined", var.name)),
 
         ASTNode::Print(p) => evaluate(&p.expression, env),
+        ASTNode::OwO(p) => evaluate(&p.expression, env),
 
         ASTNode::BinaryExpression(expr) => {
             let left = evaluate(&expr.left, env);
@@ -132,6 +134,21 @@ fn execute(node: &ASTNode, env: &mut Environment) -> Option<Value> {
             match result {
                 Value::String(s) => println!("{}", s),
                 Value::Number(n) => println!("{}", n),
+            }
+            None
+        }
+
+        ASTNode::OwO(p) => {
+            let result = evaluate(&p.expression, env); // Get the evaluated expression result
+            match result {
+                Value::String(s) => {
+                    let owo_result = owoify(&s); // Apply owoify to the string
+                    println!("{}", owo_result);  // Print the "owoified" result
+                }
+                Value::Number(n) => {
+                    println!("{}", n);  // If the result is a number, print it as is
+                }
+                // _ => panic!("OwO only supports strings or numbers."),
             }
             None
         }

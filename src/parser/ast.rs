@@ -1,5 +1,6 @@
 #[derive(Debug, Clone)]
 pub enum ASTNode {
+    OwO(OwONode),
     Print(PrintNode),
     FunctionDeclaration(FunctionDeclarationNode),
     FunctionCall(FunctionCallNode),
@@ -14,6 +15,11 @@ pub enum ASTNode {
 
 #[derive(Debug, Clone)]
 pub struct PrintNode {
+    pub expression: Box<ASTNode>,
+}
+
+#[derive(Debug, Clone)]
+pub struct OwONode {
     pub expression: Box<ASTNode>,
 }
 

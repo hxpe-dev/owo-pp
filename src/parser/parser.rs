@@ -83,6 +83,7 @@ fn parse_primary_expression(tokens: &[Token], current: &mut usize) -> ASTNode {
 fn walk(tokens: &[Token], current: &mut usize) -> ASTNode {
     match tokens[*current].token_type {
         TokenType::Print => parse_print(tokens, current),
+        TokenType::OwO => parse_owo(tokens, current),
         TokenType::FunctionDef => parse_function_declaration(tokens, current),
         TokenType::VarDecl => parse_variable_declaration(tokens, current),
         TokenType::Identifier => parse_identifier(tokens, current),
@@ -99,6 +100,14 @@ fn parse_print(tokens: &[Token], current: &mut usize) -> ASTNode {
     let expr = parse_expression(tokens, current);
     expect_parenthesis(tokens, current, ")");
     ASTBuilder::create_print_node(expr)
+}
+
+fn parse_owo(tokens: &[Token], current: &mut usize) -> ASTNode {
+    *current += 1;
+    expect_parenthesis(tokens, current, "(");
+    let expr = parse_expression(tokens, current);
+    expect_parenthesis(tokens, current, ")");
+    ASTBuilder::create_owo_node(expr)
 }
 
 fn parse_function_declaration(tokens: &[Token], current: &mut usize) -> ASTNode {

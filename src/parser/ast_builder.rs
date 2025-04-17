@@ -9,6 +9,12 @@ impl ASTBuilder {
         })
     }
 
+    pub fn create_owo_node(expression: ASTNode) -> ASTNode {
+        ASTNode::OwO(OwONode {
+            expression: Box::new(expression),
+        })
+    }
+
     pub fn create_function_declaration_node(
         name: String,
         params: Vec<ASTNode>,

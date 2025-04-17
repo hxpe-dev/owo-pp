@@ -5,6 +5,7 @@ use std::time::Instant;
 mod interpreter;
 mod lexer;
 mod parser;
+mod utils;
 
 use interpreter::interpreter::run;
 use lexer::tokenizer::tokenize;

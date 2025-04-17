@@ -32,6 +32,10 @@ Because ***life's too short for boring code***. OwO++ is designed for those who 
     ```OwO++
     print("OwO what's this?")
     ```
+  - `owo`: Output an owoified value 
+    ```OwO++
+    owo("Hello, how are you")
+    ```
 
 - **Math/Concatenation** (yes, you can use regular operators in OwO++)
   - `+`, `-`, `*`, `/` for math and string concatenation
