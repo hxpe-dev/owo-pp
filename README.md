@@ -30,7 +30,7 @@ Because ***life's too short for boring code***. OwO++ is designed for those who 
     ```
   - `meow`: Output a value
     ```OwO++
-    print("OwO what's this?")
+    meow("OwO what's this?")
     ```
   - `owo`: Output an owoified value 
     ```OwO++
