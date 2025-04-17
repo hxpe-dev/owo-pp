@@ -22,7 +22,7 @@ Because ***life's too short for boring code***. OwO++ is designed for those who 
     ```OwO++
     nyan name = "Senpai"
     ```
-  - `bringback`: Return a value from a function
+  - `bringback`: Return a value from a function (can be shortened to `bb`)
     ```OwO++
     sparkle greet() {
       bringback "uwu"

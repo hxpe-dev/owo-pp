@@ -37,5 +37,6 @@ pub fn keywords() -> HashMap<&'static str, TokenType> {
     map.insert("sparkle", TokenType::FunctionDef);
     map.insert("nyan", TokenType::VarDecl);
     map.insert("bringback", TokenType::Return);
+    map.insert("bb", TokenType::Return); // Alias for bringback
     map
 }
