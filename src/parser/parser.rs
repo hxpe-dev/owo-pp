@@ -115,15 +115,21 @@ fn parse_function_declaration(tokens: &[Token], current: &mut usize) -> ASTNode 
 
     let mut params = Vec::new();
     while let Some(token) = tokens.get(*current) {
+        if token.token_type == TokenType::Parenthesis && token.value == ")" {
+            break;
+        }
+        
         if token.token_type == TokenType::Identifier {
             let param_name = token.value.clone();
+            params.push(ASTNode::VariableDeclaration(VariableDeclarationNode {
+                name: param_name,
+                value: Box::new(ASTNode::None), // Placeholder value
+            }));
             *current += 1;
-            params.push(ASTBuilder::create_variable_declaration_node(
-                param_name,
-                ASTBuilder::create_string_literal_node(String::new()),
-            ));
-        } else {
-            break;
+        }
+        
+        if token.token_type == TokenType::Comma {
+            *current += 1; // Skip comma and continue to next parameter
         }
     }
 
@@ -173,14 +179,25 @@ fn parse_identifier(tokens: &[Token], current: &mut usize) -> ASTNode {
     if tokens.get(*current + 1).map_or(false, |t| {
         t.token_type == TokenType::Parenthesis && t.value == "("
     }) {
-        *current += 2; // Skip name + '('
+        *current += 2; // Skip the identifier and '('
 
         let mut arguments = Vec::new();
+
+        // Parse arguments separated by commas
         while let Some(token) = tokens.get(*current) {
             if token.token_type == TokenType::Parenthesis && token.value == ")" {
                 break;
             }
-            arguments.push(parse_expression(tokens, current));
+
+            if token.token_type != TokenType::Comma {
+                // Only parse expression if not a comma
+                arguments.push(parse_expression(tokens, current));
+            }
+
+            // Skip commas
+            if token.token_type == TokenType::Comma {
+                *current += 1;
+            }
         }
 
         expect_parenthesis(tokens, current, ")");

@@ -1,0 +1,5 @@
+sparkle test(a, b) {
+  bringback a + b
+}
+
+meow(test(1, 5))

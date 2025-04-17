@@ -42,6 +42,11 @@ pub fn tokenize(input: &str) -> Vec<Token> {
                 current += 1;
                 continue;
             }
+            ',' => {
+                tokens.push(create_token(TokenType::Comma, &ch.to_string()));
+                current += 1;
+                continue;
+            }
             '=' => {
                 tokens.push(create_token(TokenType::Equal, "="));
                 current += 1;

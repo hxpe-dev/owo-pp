@@ -11,27 +11,10 @@ pub enum TokenType {
     Operator,
     Parenthesis,
     Brace,
+    Comma,
     Equal,
     Return,
 }
-
-/* impl TokenType {
-    // Optional: A method to return a string representation of the enum variant.
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            TokenType::Print => "PRINT",
-            TokenType::FunctionDef => "FUNCTION_DEF",
-            TokenType::VarDecl => "VAR_DECL",
-            TokenType::Identifier => "IDENTIFIER",
-            TokenType::Number => "NUMBER",
-            TokenType::String => "STRING",
-            TokenType::Operator => "OPERATOR",
-            TokenType::Parenthesis => "PARENTHESIS",
-            TokenType::Brace => "BRACE",
-            TokenType::Equal => "EQUAL",
-        }
-    }
-} */
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Token {

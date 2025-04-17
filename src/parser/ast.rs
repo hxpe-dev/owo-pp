@@ -9,6 +9,7 @@ pub enum ASTNode {
     NumberLiteral(NumberLiteralNode),
     BinaryExpression(BinaryExpressionNode),
     Return(ReturnNode),
+    None,
 }
 
 #[derive(Debug, Clone)]
