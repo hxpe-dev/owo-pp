@@ -86,17 +86,26 @@ pub fn tokenize(input: &str) -> Vec<Token> {
                 current += 1;
             }
 
-            let token_type = keywords_map
-                .get(value.as_str())
-                .cloned()
-                .unwrap_or(TokenType::Identifier);
-
-            tokens.push(create_token(token_type, &value));
-            continue;
+            match value.as_str() {
+                "twue" | "fawse" => {
+                    tokens.push(create_token(TokenType::Bool, &value));
+                    continue;
+                }
+                _ => {
+                    let token_type = keywords_map
+                        .get(value.as_str())
+                        .cloned()
+                        .unwrap_or(TokenType::Identifier);
+        
+                    tokens.push(create_token(token_type, &value));
+                    continue;
+                }
+            }
         }
 
         panic!("Unexpected character: {}", ch);
     }
 
+    // println!("TOKENS {:?}", tokens);
     tokens
 }

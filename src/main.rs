@@ -27,5 +27,5 @@ fn main() {
     run(&ast);
 
     let duration = start_time.elapsed();
-    println!("------------------------------------\nScript ran in: {:.3?}", duration);
+    println!("------------------------------------\nScript ran in: {:.3?} OwO", duration);
 }

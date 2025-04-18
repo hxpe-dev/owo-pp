@@ -14,6 +14,7 @@ struct Environment {
 enum Value {
     Number(f64),
     String(String),
+    Bool(i8),
 }
 
 // === Entry Point ===
@@ -45,6 +46,7 @@ fn evaluate(node: &ASTNode, env: &Environment) -> Value {
     match node {
         ASTNode::StringLiteral(s) => Value::String(s.value.clone()),
         ASTNode::NumberLiteral(n) => Value::Number(n.value),
+        ASTNode::BoolLiteral(b) => Value::Bool(b.value),
 
         ASTNode::VariableReference(var) => env
             .variables
@@ -67,18 +69,32 @@ fn evaluate(node: &ASTNode, env: &Environment) -> Value {
                         Value::String(l.clone() + &r.to_string())
                     }
                     (Value::Number(l), Value::String(r)) => Value::String(l.to_string() + r),
+                    (Value::Bool(l), Value::Bool(r)) => Value::Number((l+r).into()),
+                    (Value::Bool(l), Value::Number(r)) => Value::Number(*l as f64 + r),
+                    (Value::Number(l), Value::Bool(r)) => Value::Number(l + *r as f64),
+                    _ => panic!("Operator '+' does not support those operands"),
+
                 },
                 "-" => match (&left, &right) {
                     (Value::Number(l), Value::Number(r)) => Value::Number(l - r),
-                    _ => panic!("Operator '-' requires numeric operands"),
+                    (Value::Bool(l), Value::Bool(r)) => Value::Number((l-r).into()),
+                    (Value::Bool(l), Value::Number(r)) => Value::Number(*l as f64 - r),
+                    (Value::Number(l), Value::Bool(r)) => Value::Number(l - *r as f64),
+                    _ => panic!("Operator '-' does not support those operands"),
                 },
                 "*" => match (&left, &right) {
                     (Value::Number(l), Value::Number(r)) => Value::Number(l * r),
-                    _ => panic!("Operator '*' requires numeric operands"),
+                    (Value::Bool(l), Value::Bool(r)) => Value::Number((l*r).into()),
+                    (Value::Bool(l), Value::Number(r)) => Value::Number(*l as f64 * r),
+                    (Value::Number(l), Value::Bool(r)) => Value::Number(l * *r as f64),
+                    _ => panic!("Operator '*' does not support those operands"),
                 },
                 "/" => match (&left, &right) {
                     (Value::Number(l), Value::Number(r)) => Value::Number(l / r),
-                    _ => panic!("Operator '/' requires numeric operands"),
+                    (Value::Bool(l), Value::Bool(r)) => Value::Number((l/r).into()),
+                    (Value::Bool(l), Value::Number(r)) => Value::Number(*l as f64 / r),
+                    (Value::Number(l), Value::Bool(r)) => Value::Number(l / *r as f64),
+                    _ => panic!("Operator '/' does not support those operands"),
                 },
                 op => panic!("Unknown operator: {}", op),
             }
@@ -134,6 +150,13 @@ fn execute(node: &ASTNode, env: &mut Environment) -> Option<Value> {
             match result {
                 Value::String(s) => println!("{}", s),
                 Value::Number(n) => println!("{}", n),
+                Value::Bool(b) => {
+                    if b == 1 {
+                        println!("twue");
+                    } else {
+                        println!("fawse");
+                    }
+                },
             }
             None
         }
@@ -147,6 +170,13 @@ fn execute(node: &ASTNode, env: &mut Environment) -> Option<Value> {
                 }
                 Value::Number(n) => {
                     println!("{}", n);  // If the result is a number, print it as is
+                }
+                Value::Bool(b) => {
+                    if b == 1 {
+                        println!("twue");
+                    } else {
+                        println!("fawse");
+                    }
                 }
                 // _ => panic!("OwO only supports strings or numbers."),
             }

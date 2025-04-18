@@ -1,0 +1,9 @@
+nyan a = twue
+meow(a)
+
+sparkle test(b) {
+  bb b
+}
+
+nyan c = test(fawse)
+meow(c)

@@ -67,6 +67,14 @@ fn parse_primary_expression(tokens: &[Token], current: &mut usize) -> ASTNode {
             *current += 1;
             ASTBuilder::create_string_literal_node(token.value.clone())
         }
+        TokenType::Bool => {
+            *current += 1;
+            if token.value == "twue" {
+                ASTBuilder::create_bool_literal_node(1)
+            } else {
+                ASTBuilder::create_bool_literal_node(0)
+            }
+        }
         TokenType::Identifier => parse_identifier(tokens, current),
         TokenType::Parenthesis if token.value == "(" => {
             *current += 1;

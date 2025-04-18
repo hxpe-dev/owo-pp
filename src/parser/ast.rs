@@ -8,6 +8,7 @@ pub enum ASTNode {
     VariableReference(VariableReferenceNode),
     StringLiteral(StringLiteralNode),
     NumberLiteral(NumberLiteralNode),
+    BoolLiteral(BoolLiteralNode),
     BinaryExpression(BinaryExpressionNode),
     Return(ReturnNode),
     None,
@@ -55,6 +56,11 @@ pub struct StringLiteralNode {
 #[derive(Debug, Clone)]
 pub struct NumberLiteralNode {
     pub value: f64,
+}
+
+#[derive(Debug, Clone)]
+pub struct BoolLiteralNode {
+    pub value: i8,
 }
 
 #[derive(Debug, Clone)]

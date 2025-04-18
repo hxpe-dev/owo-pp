@@ -54,6 +54,10 @@ impl ASTBuilder {
         ASTNode::NumberLiteral(NumberLiteralNode { value })
     }
 
+    pub fn create_bool_literal_node(value: i8) -> ASTNode {
+        ASTNode::BoolLiteral(BoolLiteralNode { value })
+    }
+
     pub fn create_function_call_node(name: String, arguments: Vec<ASTNode>) -> ASTNode {
         ASTNode::FunctionCall(FunctionCallNode { name, arguments })
     }

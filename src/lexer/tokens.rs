@@ -9,6 +9,7 @@ pub enum TokenType {
     Identifier,
     Number,
     String,
+    Bool,
     Operator,
     Parenthesis,
     Brace,
