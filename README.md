@@ -36,10 +36,15 @@ Because ***life's too short for boring code***. OwO++ is designed for those who 
     ```OwO++
     owo("Hello, how are you")
     ```
+  - `kindOf`: Get the expression type
+    ```OwO++
+    kindOf("This is a string")
+    ```
 
 - **Math/Concatenation** (yes, you can use regular operators in OwO++)
   - `+`, `-`, `*`, `/` for math and string concatenation
     ```OwO++
-    print(2 + 2)  # Math
-    print("uwu" + "owo")  # String concatenation
+    meow(2 + 2)  # Math
+    meow("uwu" + "owo")  # String concatenation
+    meow(fawse + twue)  # Booleans operation
     ```

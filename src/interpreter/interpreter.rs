@@ -32,7 +32,7 @@ pub fn run(ast: &[ASTNode]) {
     // Pass 2: Execute statements
     for node in ast {
         match node {
-            ASTNode::OwO(_) | ASTNode::Print(_) | ASTNode::FunctionCall(_) | ASTNode::VariableDeclaration(_) => {
+            ASTNode::OwO(_) | ASTNode::Print(_) | ASTNode::FunctionCall(_) | ASTNode::VariableDeclaration(_) | ASTNode::KindOf(_) => {
                 execute(node, &mut env);
             }
             _ => {}
@@ -56,6 +56,8 @@ fn evaluate(node: &ASTNode, env: &Environment) -> Value {
 
         ASTNode::Print(p) => evaluate(&p.expression, env),
         ASTNode::OwO(p) => evaluate(&p.expression, env),
+        
+        ASTNode::KindOf(k) => evaluate_kind_of(k, env),
 
         ASTNode::BinaryExpression(expr) => {
             let left = evaluate(&expr.left, env);
@@ -141,6 +143,15 @@ fn evaluate_function_call(call: &FunctionCallNode, env: &Environment) -> Value {
     return_value.unwrap_or(Value::String("No return value".to_string()))
 }
 
+fn evaluate_kind_of(k: &KindOfNode, env: &Environment) -> Value {
+    let result = evaluate(&k.expression, env);
+    match result {
+        Value::String(_) => Value::String("string".to_string()),
+        Value::Number(_) => Value::String("number".to_string()),
+        Value::Bool(_) => Value::String("bool".to_string()),
+    }
+}
+
 // === Execution ===
 
 fn execute(node: &ASTNode, env: &mut Environment) -> Option<Value> {
@@ -182,6 +193,8 @@ fn execute(node: &ASTNode, env: &mut Environment) -> Option<Value> {
             }
             None
         }
+
+        ASTNode::KindOf(k) => Some(evaluate_kind_of(k, env)),
 
         ASTNode::FunctionCall(call) => Some(evaluate_function_call(call, env)),
 

@@ -67,4 +67,10 @@ impl ASTBuilder {
             value: Box::new(value),
         })
     }
+
+    pub fn create_kind_of_node(expression: ASTNode) -> ASTNode {
+        ASTNode::KindOf(KindOfNode {
+            expression: Box::new(expression),
+        })
+    }
 }

@@ -6,4 +6,4 @@ sparkle test(b) {
 }
 
 nyan c = test(fawse)
-meow(c)
+meow(kindOf(c+1))

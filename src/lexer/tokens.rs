@@ -16,6 +16,7 @@ pub enum TokenType {
     Comma,
     Equal,
     Return,
+    KindOf,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -39,5 +40,6 @@ pub fn keywords() -> HashMap<&'static str, TokenType> {
     map.insert("nyan", TokenType::VarDecl);
     map.insert("bringback", TokenType::Return);
     map.insert("bb", TokenType::Return); // Alias for bringback
+    map.insert("kindOf", TokenType::KindOf);
     map
 }

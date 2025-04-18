@@ -11,6 +11,7 @@ pub enum ASTNode {
     BoolLiteral(BoolLiteralNode),
     BinaryExpression(BinaryExpressionNode),
     Return(ReturnNode),
+    KindOf(KindOfNode),
     None,
 }
 
@@ -66,6 +67,11 @@ pub struct BoolLiteralNode {
 #[derive(Debug, Clone)]
 pub struct ReturnNode {
     pub value: Box<ASTNode>,
+}
+
+#[derive(Debug, Clone)]
+pub struct KindOfNode {
+    pub expression: Box<ASTNode>,
 }
 
 #[derive(Debug, Clone)]
