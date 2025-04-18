@@ -145,6 +145,10 @@ fn parse_function_declaration(tokens: &[Token], current: &mut usize) -> ASTNode 
         if token.token_type == TokenType::Parenthesis && token.value == ")" {
             break;
         }
+
+        if token.token_type == TokenType::OwO || token.token_type == TokenType::Print || token.token_type == TokenType::FunctionDef || token.token_type == TokenType::VarDecl || token.token_type == TokenType::Return || token.token_type == TokenType::KindOf {
+            panic!("You can't use a keyword as a function parameter.")
+        } 
         
         if token.token_type == TokenType::Identifier {
             let param_name = token.value.clone();

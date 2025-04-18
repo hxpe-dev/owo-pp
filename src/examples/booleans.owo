@@ -2,8 +2,8 @@ nyan a = twue
 meow(a)
 
 sparkle test(b) {
-  bb b
+  bb kindOf(b)
 }
 
 nyan c = test(fawse)
-meow(kindOf(c+1))
+meow(c)
